@@ -11,6 +11,12 @@ public:
     Vec3() : x(0), y(0), z(0) {}
     Vec3(const float _x, const float _y, const float _z) : x(_x), y(_y), z(_z) {}
 
+    Vec3 operator+(const Vec3& other) const {
+        return {x + other.x, y + other.y, z + other.z};
+    }
+    Vec3 operator-(const Vec3& other) const {
+        return {x - other.x, y - other.y, z - other.z};
+    }
     float length() const { return std::sqrt(x * x + y * y + z * z); }
     Vec3 normal() const {
             const float len = length();

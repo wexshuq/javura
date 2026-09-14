@@ -5,8 +5,13 @@
 #pragma once
 
 #include "vec3.h"
+#include <cmath>
+
+#include "math_utils.h"
+
 
 class Matrix4x4 {
+
 public:
     float data[16];
 
@@ -20,7 +25,7 @@ public:
     }
 
     static Matrix4x4 Identity() {
-        constexpr Matrix4x4 result{
+        constexpr Matrix4x4 result {
             1,0,0,0,
             0,1,0,0,
             0,0,1,0,
@@ -50,16 +55,74 @@ public:
         result.At(1, 1) = scale.y;
         result.At(2, 2) = scale.z;
 
-        *this = *this * result;
+        *this = result * *this;
         return *this;
     }
 
-    Matrix4x4& Translate(const Vec3 translation) {
+    Matrix4x4& Translate(const Vec3& translation)
+    {
         Matrix4x4 result = Identity();
+
         result.At(0, 3) = translation.x;
         result.At(1, 3) = translation.y;
         result.At(2, 3) = translation.z;
-        *this = *this * result;
+
+        *this = result * *this;
+        return *this;
+    }
+
+    Matrix4x4& RotateY(const float angle)
+    {
+        const float radians = Math::ToRadians(angle);
+
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
+
+        const Matrix4x4 rotation{
+            c,0,s,0,
+            0,1,0,0,
+            -s,0,c,0,
+            0,0,0,1
+        };
+
+        *this = rotation * *this;
+
+        return *this;
+    }
+    Matrix4x4& RotateX(const float angle)
+    {
+        const float radians = Math::ToRadians(angle);
+
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
+
+        const Matrix4x4 rotation{
+            1,0,0,0,
+            0,c,-s,0,
+            0,s,c,0,
+            0,0,0,1
+        };
+
+        *this = rotation * *this;
+
+        return *this;
+    }
+
+    Matrix4x4& RotateZ(const float angle)
+    {
+        const float radians = Math::ToRadians(angle);
+
+        const float c = std::cos(radians);
+        const float s = std::sin(radians);
+
+        const Matrix4x4 rotation{
+            c,-s,0,0,
+            s,c,0,0,
+            0,0,1,0,
+            0,0,0,1
+        };
+
+        *this = rotation * *this;
 
         return *this;
     }

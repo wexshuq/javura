@@ -6,6 +6,7 @@
 
 #include "rlgl.h"
 #include "../math/matrix4x4.h"
+#include "../math/transformation.h"
 
 void Engine::Init()
 {
@@ -41,15 +42,18 @@ void Engine::Run()
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        Matrix4x4 matrix = Matrix4x4::Identity();
+        Matrix4x4 view = Matrix4x4::Identity();
 
-        matrix.Scale({1,1,1});
-        matrix.Translate({2,3,2});
+
+        view.RotateY(angle);
+        view.RotateX(angle);
+        view.Translate({5,5,5});
+
         DrawFPS(10,10);
         DrawText("Hello world", 100, 100, 30, BLACK);
         BeginMode3D(camera.GetRayCamera());
         rlPushMatrix();
-        rlMultMatrixf(matrix.data);
+        rlMultMatrixf(view.data);
         DrawCube({0,0,0},1,1,1,RED);
         DrawCubeWires({0,0,0},1,1,1,BLACK);
         rlPopMatrix();

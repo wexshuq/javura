@@ -3,7 +3,7 @@
 //
 
 #include "camera.h"
-#include "../engine/raysync.h"
+#include "../utils/raysync.h"
 
 void MainCamera::Update()
 {

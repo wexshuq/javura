@@ -20,7 +20,9 @@ add_executable(untitled main.cpp
         math/Vec3.h
         renderer/camera.cpp
         renderer/camera.h
-        engine/raysync.h
-        math/matrix4x4.h)
+        utils/raysync.h
+        math/matrix4x4.h
+        math/math_utils.h
+        "math/Transformation.h")
 
 target_link_libraries(untitled PRIVATE raylib)
