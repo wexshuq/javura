@@ -5,9 +5,12 @@
 #include "camera.h"
 #include "../utils/raysync.h"
 
-void MainCamera::Update()
+void MainCamera::Update(Player& player)
 {
     // RayLib Synchronization
+    //position = player.getPosition()-Vec3(3,-3,0);
+    //target = player.getPosition();
+
     rayCamera.position = RaySync::ToRay(position);
     rayCamera.target = RaySync::ToRay(target);
     rayCamera.up = RaySync::ToRay(up);

@@ -4,24 +4,33 @@
 #pragma once
 
 #include <raylib.h>
+
+#include "../entity/impl/player.h"
 #include "../math/vec3.h"
 
 class MainCamera
 {
 public:
-    void Update();
+    enum class TargetType
+    {
+        Player,
+        Other
+    };
+
+    void Update(Player& player);
 
     [[nodiscard]] const Camera3D& GetRayCamera() const
     {
         return rayCamera;
     }
 
+    TargetType currentCameraTarget = TargetType::Player;
+
     Vec3 position;
     Vec3 target;
     Vec3 up;
 
-
-    float fovy=0;
+    float fovy = 45.0f;
     int projection = CAMERA_PERSPECTIVE;
     int mode = CAMERA_FREE;
 

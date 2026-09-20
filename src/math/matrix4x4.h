@@ -13,7 +13,7 @@
 class Matrix4x4 {
 
 public:
-    float data[16];
+    float data[16]{};
 
     const float& At(const int row, const int column) const
     {
@@ -49,29 +49,23 @@ public:
         return result;
     }
 
-    Matrix4x4& Scale(const Vec3 scale) {
+
+    static Matrix4x4 CreateScale(const Vec3& scale) {
         Matrix4x4 result = Identity();
         result.At(0, 0) = scale.x;
         result.At(1, 1) = scale.y;
         result.At(2, 2) = scale.z;
-
-        *this = result * *this;
-        return *this;
+        return result;
     }
 
-    Matrix4x4& Translate(const Vec3& translation)
-    {
+    static Matrix4x4 CreateTranslation(const Vec3& translation) {
         Matrix4x4 result = Identity();
-
         result.At(0, 3) = translation.x;
         result.At(1, 3) = translation.y;
         result.At(2, 3) = translation.z;
-
-        *this = result * *this;
-        return *this;
+        return result;
     }
-
-    Matrix4x4& RotateY(const float angle)
+    static Matrix4x4 CreateYRotation(const float angle)
     {
         const float radians = Math::ToRadians(angle);
 
@@ -85,11 +79,9 @@ public:
             0,0,0,1
         };
 
-        *this = rotation * *this;
-
-        return *this;
+        return rotation;
     }
-    Matrix4x4& RotateX(const float angle)
+    static Matrix4x4 CreateXRotation(const float angle)
     {
         const float radians = Math::ToRadians(angle);
 
@@ -103,12 +95,10 @@ public:
             0,0,0,1
         };
 
-        *this = rotation * *this;
-
-        return *this;
+        return rotation;
     }
 
-    Matrix4x4& RotateZ(const float angle)
+    static Matrix4x4 CreateZRotation(const float angle)
     {
         const float radians = Math::ToRadians(angle);
 
@@ -122,8 +112,6 @@ public:
             0,0,0,1
         };
 
-        *this = rotation * *this;
-
-        return *this;
+        return rotation;
     }
 };
